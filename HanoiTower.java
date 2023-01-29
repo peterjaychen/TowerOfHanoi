@@ -70,7 +70,7 @@ public class HanoiTower {
 		/*
 		 *	Step-by-step algorithm solves the game using 4 levels
 		 */
-		solve4Disks();
+		// solve4Disks();
 		
 		/*
 		 *	Automated solver method
@@ -193,19 +193,29 @@ public class HanoiTower {
 		
 		printTowers();
 		
-		/*
-		 *	A recursive method to solve the puzzle is called here.
-		 *
-		 *	to be completed by student ...
-		 */
+		recursiveHanoi(levels, 0, 1);
 	}
-	
-	/*
-	 *	Recursive method goes here.
-	 *
-	 *	to be completed by student ...
+	/**
+	 * Given n number of disks, solves the Tower of Hanoi
+	 * First needs to move the disks to a "temp peg"
+	 * Base case is when the longest peg gets moved to the "to" tower
+	 * After that, all the smaller pegs (1 to n - 1) get moved to it's destination 
+	 * @param numOfDisk		number of disks 
+	 * @param from			tower number to move from
+	 * @param to			tower number to move to
 	 */
+	public void recursiveHanoi(int numOfDisk, int from, int to) {
+		final int TOTAL_PEG = 3;
+		int intermediatePeg = TOTAL_PEG - (from + to);
 
+		if(numOfDisk > 0) 
+		{
+			recursiveHanoi(numOfDisk - 1, from, intermediatePeg);
+			moveDisk(from, to);
+			printTowers();
+			recursiveHanoi(numOfDisk - 1, intermediatePeg, to);
+		}
+	}
 	
 	/**
 	 *	Move the top disk from peg to peg. Move is successful if a smaller
